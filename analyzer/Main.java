@@ -53,22 +53,63 @@
 
 
 
+// package analyzer;
+// import java.io.*;
+// import java.lang.*;
+// import java.util.*;
+// public class Main{
+//     public static void main(String[] args) {
+//         String s[]=new String[4];
+//         s[0]=args[0];
+//         s[1]=args[1];
+//         s[2]=args[2];
+//         try{
+//             File file = new File(args[0]);
+//             File[] files = file.listFiles();
+//             for(File f: files){
+//                 s[3]=f.getName();
+//                 Thread ft=new Thread(new FileType(s),s[3]);
+//                 ft.start();
+//                 ft.join();
+//             }
+//         }catch(Exception e){
+//             e.printStackTrace();
+//         }
+//         Thread t=new Thread();
+//         t.start();
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
 package analyzer;
 import java.io.*;
 import java.lang.*;
 import java.util.*;
 public class Main{
     public static void main(String[] args) {
-        String s[]=new String[4];
-        s[0]=args[0];
-        s[1]=args[1];
-        s[2]=args[2];
+        ArrayList<String> arr=new ArrayList<>();
         try{
+            BufferedReader br=new BufferedReader(new FileReader(args[1]));
+            String line="";
+            while((line=br.readLine())!=null){
+                arr.add(line);
+            }
+            br.close();
             File file = new File(args[0]);
             File[] files = file.listFiles();
             for(File f: files){
-                s[3]=f.getName();
-                Thread ft=new Thread(new FileType(s),s[3]);
+                String s=f.getName();
+                Thread ft=new Thread(new FileType(args[0],s,arr),s);
                 ft.start();
                 ft.join();
             }
@@ -79,3 +120,4 @@ public class Main{
         t.start();
     }
 }
+
